@@ -2,7 +2,6 @@ const { REST, Routes, SlashCommandBuilder } = require('discord.js');
 
 const TOKEN = process.env.TOKEN;
 const CLIENT_ID = process.env.CLIENT_ID;
-const GUILD_ID = process.env.GUILD_ID;
 
 const commands = [
   new SlashCommandBuilder()
@@ -59,31 +58,6 @@ const commands = [
         .setDescription('Usuario a consultar')
         .setRequired(true)),
   new SlashCommandBuilder()
-    .setName('setwarnchannel')
-    .setDescription('Configura el canal donde se registran los warns')
-    .addChannelOption(option =>
-      option.setName('canal')
-        .setDescription('Canal para registrar warns')
-        .setRequired(true)),
-  new SlashCommandBuilder()
-    .setName('setlevelchannel')
-    .setDescription('Configura el canal donde se anuncian los niveles')
-    .addChannelOption(option =>
-      option.setName('canal')
-        .setDescription('Canal para anunciar niveles')
-        .setRequired(true)),
-  new SlashCommandBuilder()
-    .setName('setlevelrole')
-    .setDescription('Asocia o cambia el rol que se da a un nivel')
-    .addIntegerOption(option =>
-      option.setName('nivel')
-        .setDescription('Nivel a configurar')
-        .setRequired(true))
-    .addRoleOption(option =>
-      option.setName('rol')
-        .setDescription('Rol a asignar')
-        .setRequired(true)),
-  new SlashCommandBuilder()
     .setName('level')
     .setDescription('Muestra tu nivel y XP actual'),
 ].map(command => command.toJSON());
@@ -92,12 +66,12 @@ const rest = new REST({ version: '10' }).setToken(TOKEN);
 
 (async () => {
   try {
-    console.log('Registrando comandos...');
+    console.log('Registrando comandos globales...');
     await rest.put(
-      Routes.applicationGuildCommands(CLIENT_ID, GUILD_ID),
+      Routes.applicationCommands(CLIENT_ID), // global, sin GUILD_ID
       { body: commands }
     );
-    console.log('Comandos registrados');
+    console.log('Comandos globales registrados');
   } catch (error) {
     console.error(error);
   }
