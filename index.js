@@ -1,13 +1,3 @@
-const { Client, GatewayIntentBits } = require('discord.js');
-
-const TOKEN = 'TU_TOKEN_AQUI';
-const CLIENT_ID = 'TU_CLIENT_ID';
-const GUILD_ID = 'TU_GUILD_ID';
-
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-
-client.once('ready', () => {
-    console.log(`Bot iniciado como ${client.user.tag}`);
-});
-
-client.login(TOKEN);
+const TOKEN = process.env.TOKEN;  // Dejás el token en variables de entorno Railway
+const CLIENT_ID = "1404308965185159380"; // Ponés tu Client ID fijo
+const GUILD_ID = "1404308965185159380";  // Ponés tu Guild ID fijo
